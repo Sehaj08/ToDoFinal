@@ -39,52 +39,74 @@ public class ToDoDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_to_do_detail);
         spinner = (Spinner) findViewById(R.id.spinner);
         categoryArrayList = new ArrayList<>();
-        categoryArrayList.add("Default");
+        categoryArrayList.add("Home");
         categoryArrayList.add("Personal");
         categoryArrayList.add("Shopping");
         categoryArrayList.add("Work");
-        categoryArrayList.add("Custom");
+        categoryArrayList.add("Others");
+//        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(ToDoDetailActivity.this);
+//        SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(ToDoOpenHelper.SPINNER_CATEGORY,"Home");
+//        contentValues.put(ToDoOpenHelper.SPINNER_CATEGORY,"Personal");
+//        contentValues.put(ToDoOpenHelper.SPINNER_CATEGORY,"Shopping");
+//        contentValues.put(ToDoOpenHelper.SPINNER_CATEGORY,"Work");
+//        contentValues.put(ToDoOpenHelper.SPINNER_CATEGORY,"Others");
+//        database.insert(ToDoOpenHelper.SPINNER__TABLE_NAME, null, contentValues);
+
+
+//        database.insert(ToDoOpenHelper.TODO_TABLE_NAME, null, contentValues);
 // Create an ArrayAdapter using the string array and a default spinner layout
          spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categoryArrayList);
 // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String category = spinner.getItemAtPosition(i).toString();
-                if(category.equals("Custom")){
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(ToDoDetailActivity.this);
-                    builder.setTitle("Custom Category");
-                    View v = getLayoutInflater().inflate(R.layout.category_dialog_view,null);
-                    builder.setCancelable(false);
-                    final EditText categoryEditText = (EditText)v.findViewById(R.id.categoryEditTextView);
-                    builder.setView(v);
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String categ = categoryEditText.getText().toString();
-                            categoryArrayList.add(categoryArrayList.size()-1,categ);
-                            spinnerAdapter.notifyDataSetChanged();
-                        }
-                    });
-                   builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(DialogInterface dialogInterface, int i) {
-                           dialogInterface.dismiss();
-                       }
-                   });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                String category = spinner.getItemAtPosition(i).toString();
+//                if(category.equals("Custom")){
+//                    final AlertDialog.Builder builder = new AlertDialog.Builder(ToDoDetailActivity.this);
+//                    builder.setTitle("Custom Category");
+//                    builder.setCancelable(false);
+//                    View v = getLayoutInflater().inflate(R.layout.category_dialog_view,null);
+//                    final EditText categoryEditText = (EditText)v.findViewById(R.id.categoryEditTextView);
+//                    builder.setView(v);
+//                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            String categ = categoryEditText.getText().toString();
+//                            if(categ.trim().isEmpty()){
+//                                categoryEditText.setError("This cant be blank");
+//                            }
+//                            else {
+//                                ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(ToDoDetailActivity.this);
+//                                SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
+//                                ContentValues contentValues = new ContentValues();
+//                                contentValues.put(ToDoOpenHelper.SPINNER_CATEGORY,categoryEditText.toString());
+//                                database.insert(ToDoOpenHelper.SPINNER__TABLE_NAME, null, contentValues);
+//                                categoryArrayList.add(categoryArrayList.size() - 1, categ);
+//                                spinnerAdapter.notifyDataSetChanged();
+//                            }
+//                        }
+//                    });
+//                   builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                       @Override
+//                       public void onClick(DialogInterface dialogInterface, int i) {
+//                           dialogInterface.dismiss();
+//                       }
+//                   });
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
         titleTextView = (EditText) findViewById(R.id.detailTitleEditText);
         dateTextView = (EditText) findViewById(R.id.detailDateEditText);
         timeTextView = (EditText)findViewById(R.id.detailTimeEditText);
@@ -96,7 +118,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
         id = i.getIntExtra(IntentConstants.ID,-1);
         // create ToDoOpenHelper object and retrieve the content corresponding to the ID
-        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperImstance(this);
+        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(this);
         SQLiteDatabase database = toDoOpenHelper.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * from " + ToDoOpenHelper.TODO_TABLE_NAME + " WHERE " + ToDoOpenHelper.TODO_ID  + " = " + id , null);
 
@@ -148,7 +170,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
                 }
 
                 //create ToDoOpenHelperObject to be able to get data from database
-                ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperImstance(ToDoDetailActivity.this);
+                ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(ToDoDetailActivity.this);
                 SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
 
                 //put corresponding values into content values

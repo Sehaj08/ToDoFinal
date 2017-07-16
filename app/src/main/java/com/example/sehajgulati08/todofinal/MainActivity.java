@@ -15,14 +15,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     int TODO_CODE = 1;
     EditText quickEditTextView;
     Button buttonQuickAdd;
-
+    Spinner spinnerSort;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperImstance(MainActivity.this);
+                        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(MainActivity.this);
                         SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
                         database.delete(ToDoOpenHelper.TODO_TABLE_NAME ,ToDoOpenHelper.TODO_ID + "=" + toDoArrayList.get(position).id,null);
                         toDoArrayList.remove(position);
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateToDoList(){
         toDoArrayList.clear();
-        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperImstance(MainActivity.this);
+        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(MainActivity.this);
         SQLiteDatabase database = toDoOpenHelper.getReadableDatabase();
         Cursor cursor = database.query(ToDoOpenHelper.TODO_TABLE_NAME,null,null,null,null,null,null);
 
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             quickEditTextView.setError("Task cannot be empty");
             return;
         }
-        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperImstance(MainActivity.this);
+        ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(MainActivity.this);
         SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(ToDoOpenHelper.TODO_TITLE,quickTask);

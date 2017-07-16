@@ -5,13 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.sehajgulati08.todofinal.MainActivity"
     tools:showIn="@layout/activity_main">
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="465dp"
+      android:layout_height="0dp"
+      android:layout_weight="1">
+    <Spinner
+        android:layout_marginTop="50dp"
+        android:id="@+id/spinnerMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        style=""/>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="4"
       >
     <ListView
         android:layout_width="match_parent"
@@ -23,8 +37,9 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
+      android:layout_height="0dp"
+      android:orientation="horizontal"
+      android:layout_weight="1">
     <EditText
         android:id="@+id/quickEditTextView"
         android:layout_width="300dp"
