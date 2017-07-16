@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.sehajgulati08.todofinal.ToDoDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="What is to be done?"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"/>
+        <EditText
+            android:id="@+id/detailTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Enter Task Here"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:text="Due Date:"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/detailDateEditText"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:focusable="false"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Date not set"/>
+
+            <ImageView
+                android:id="@+id/calenderImageView"
+                android:layout_weight="1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:src ="@drawable/calenderlogo"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Time :"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/detailTimeEditText"
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:focusable="false"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Time not set" />
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_weight="1"
+        android:layout_height="35dp"
+        android:src="@drawable/clock"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <Spinner
+               android:id="@+id/spinner"
+               android:layout_width="350dp"
+               android:layout_height="wrap_content"
+               android:background="@android:drawable/btn_dropdown"
+               android:spinnerMode="dropdown"
+               style=""/>
+
+       </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        >
+
+        <Button
+            android:id="@+id/submitButton"
+            android:text="OK"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+</LinearLayout>
