@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(MainActivity.this);
         SQLiteDatabase database = toDoOpenHelper.getReadableDatabase();
         Cursor cursor = database.query(ToDoOpenHelper.TODO_TABLE_NAME,null,null,null,null,null,null);
-
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(ToDoOpenHelper.TODO_ID));
             String title = cursor.getString(cursor.getColumnIndex(ToDoOpenHelper.TODO_TITLE));
