@@ -17,18 +17,36 @@ import java.util.ArrayList;
  * Created by sehaj.gulati08 on 07-07-2017.
  */
 
-public class ToDoAdapter extends ArrayAdapter<ToDoItems> {
-    ArrayList<ToDoItems> toDoArrayList;
+public class ToDoAdapter extends ArrayAdapter<ToDoItems>  {
+    ArrayList<ToDoItems> toDoArrayList,toDoArrayListCopy;
     Context context;
     public ToDoAdapter(Context context, ArrayList<ToDoItems> toDoArrayList) {
         super(context,0);
         this.toDoArrayList = toDoArrayList;
         this.context = context;
+        toDoArrayListCopy=toDoArrayList;
     }
 
     @Override
     public int getCount() {
         return toDoArrayList.size();
+    }
+
+    public void filter(String newText) {
+        newText=newText.toLowerCase();
+        toDoArrayList= new ArrayList<>();
+        if(newText=="All"){
+            toDoArrayListCopy=toDoArrayList;
+        }
+        else{
+            for(int i=0;i<toDoArrayListCopy.size();i++){
+                ToDoItems t= toDoArrayListCopy.get(i);
+                if(newText==toDoArrayListCopy.get(i).category){
+                    toDoArrayList.add(t);
+                }
+            }
+            notifyDataSetChanged();
+        }
     }
 
     static class ToDoViewHolder{

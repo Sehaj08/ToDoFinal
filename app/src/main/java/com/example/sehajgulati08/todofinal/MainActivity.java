@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ListView listView;
     ArrayList<ToDoItems> toDoArrayList;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText quickEditTextView;
     Button buttonQuickAdd;
     Spinner spinnerSort;
+    ArrayList<String> categoryArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,14 @@ public class MainActivity extends AppCompatActivity {
         toDoArrayList = new ArrayList<>();
         toDoAdapter = new ToDoAdapter(this,toDoArrayList);
         listView.setAdapter(toDoAdapter);
+        spinnerSort= (Spinner) findViewById(R.id.spinnerMain);
         setSupportActionBar(toolbar);
+        categoryArrayList.add("Home");
+        categoryArrayList.add("Personal");
+        categoryArrayList.add("Shopping");
+        categoryArrayList.add("Work");
+        categoryArrayList.add("Others");
+        categoryArrayList.add("All");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -176,5 +184,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String item =spinnerSort.getSelectedItem().toString();
+        filter(item);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+    public void filter( String newText){
+        ToDoAdapter.filter(newText);
     }
 }
