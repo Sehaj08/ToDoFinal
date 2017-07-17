@@ -40,7 +40,7 @@ public class ToDoOpenHelper extends SQLiteOpenHelper {
 
         String query2 = "create table" + SPINNER__TABLE_NAME + " ( " + SPINNER_CATEGORY + " text);";
         db.execSQL(query);
-        db.execSQL(query2);
+//        db.execSQL(query2);
     }
 
     @Override

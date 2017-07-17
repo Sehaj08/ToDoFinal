@@ -121,8 +121,7 @@
                android:layout_width="350dp"
                android:layout_height="wrap_content"
                android:background="@android:drawable/btn_dropdown"
-               android:spinnerMode="dropdown"
-               style=""/>
+               android:spinnerMode="dropdown" />
 
        </LinearLayout>
 
@@ -135,13 +134,25 @@
         android:layout_marginTop="20dp"
         >
 
-        <Button
-            android:id="@+id/submitButton"
-            android:text="OK"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginBottom="50dp"
+            android:src="@android:drawable/ic_menu_save"
+            android:tint="#ffffff"
+            app:backgroundTint="@color/colorPrimary"/>
+
     </LinearLayout>
 </LinearLayout>
+<!--<Button-->
+<!--android:id="@+id/submitButton"-->
+<!--android:text="OK"-->
+<!--android:background="@color/colorAccent"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="0dp"-->
+<!--android:layout_weight="1"-->
+<!--android:layout_gravity="center"-->
+    <!--/>-->

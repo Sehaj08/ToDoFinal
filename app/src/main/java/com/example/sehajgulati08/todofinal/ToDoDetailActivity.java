@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,7 +44,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_to_do_detail);
         spinner = (Spinner) findViewById(R.id.spinner);
         categoryArrayList = new ArrayList<>();
-        categoryArrayList.add("Home");
+        categoryArrayList.add("Default");
         categoryArrayList.add("Personal");
         categoryArrayList.add("Shopping");
         categoryArrayList.add("Work");
@@ -60,7 +62,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
 
 //        database.insert(ToDoOpenHelper.TODO_TABLE_NAME, null, contentValues);
 // Create an ArrayAdapter using the string array and a default spinner layout
-         spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categoryArrayList);
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArrayList);
 // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
@@ -112,21 +114,21 @@ public class ToDoDetailActivity extends AppCompatActivity {
 //        });
         titleTextView = (EditText) findViewById(R.id.detailTitleEditText);
         dateTextView = (EditText) findViewById(R.id.detailDateEditText);
-        timeTextView = (EditText)findViewById(R.id.detailTimeEditText);
+        timeTextView = (EditText) findViewById(R.id.detailTimeEditText);
         calenderImageView = (ImageView) findViewById(R.id.calenderImageView);
         clockImageView = (ImageView) findViewById(R.id.clockImageView);
-        Button submitButton = (Button)findViewById(R.id.submitButton);
+//        Button submitButton = (Button) findViewById(R.id.submitButton);
 
         //get ID by intent
 
         Intent i = getIntent();
-        id = i.getIntExtra(IntentConstants.ID,-1);
+        id = i.getIntExtra(IntentConstants.ID, -1);
         // create ToDoOpenHelper object and retrieve the content corresponding to the ID
         ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(this);
         SQLiteDatabase database = toDoOpenHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * from " + ToDoOpenHelper.TODO_TABLE_NAME + " WHERE " + ToDoOpenHelper.TODO_ID  + " = " + id , null);
+        Cursor cursor = database.rawQuery("SELECT * from " + ToDoOpenHelper.TODO_TABLE_NAME + " WHERE " + ToDoOpenHelper.TODO_ID + " = " + id, null);
 
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             title = cursor.getString(cursor.getColumnIndex(ToDoOpenHelper.TODO_TITLE));
             category = cursor.getString(cursor.getColumnIndex(ToDoOpenHelper.TODO_CATEGORY));
             date = cursor.getString(cursor.getColumnIndex(ToDoOpenHelper.TODO_DATE));
@@ -179,15 +181,16 @@ public class ToDoDetailActivity extends AppCompatActivity {
                 showTimePicker(ToDoDetailActivity.this, hour, minute, false);
             }
         });
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String newTitle = titleTextView.getText().toString();
                 String newCategory = spinner.getSelectedItem().toString();
                 String newDate = dateTextView.getText().toString();
                 String newTime = timeTextView.getText().toString();
 
-                if(newTitle.trim().isEmpty()){
+                if (newTitle.trim().isEmpty()) {
                     titleTextView.setError("This field is mandatory");
                     return;
                 }
@@ -198,26 +201,75 @@ public class ToDoDetailActivity extends AppCompatActivity {
 
                 //put corresponding values into content values
                 ContentValues cv = new ContentValues();
-                cv.put(ToDoOpenHelper.TODO_TITLE,newTitle);
-                cv.put(ToDoOpenHelper.TODO_CATEGORY,newCategory);
-                cv.put(ToDoOpenHelper.TODO_DATE,newDate);
-                cv.put(ToDoOpenHelper.TODO_TIME,newTime);
+                cv.put(ToDoOpenHelper.TODO_TITLE, newTitle);
+                cv.put(ToDoOpenHelper.TODO_CATEGORY, newCategory);
+                cv.put(ToDoOpenHelper.TODO_DATE, newDate);
+                cv.put(ToDoOpenHelper.TODO_TIME, newTime);
 
-                if(id == -1) {
+                if (id == -1) {
                     database.insert(ToDoOpenHelper.TODO_TABLE_NAME, null, cv);
                     Toast.makeText(ToDoDetailActivity.this, "Task Added", Toast.LENGTH_SHORT).show();
 
-                }else{
-                    database.update(ToDoOpenHelper.TODO_TABLE_NAME,cv,ToDoOpenHelper.TODO_ID + "=" + id,null);
+                } else {
+                    database.update(ToDoOpenHelper.TODO_TABLE_NAME, cv, ToDoOpenHelper.TODO_ID + "=" + id, null);
                     Toast.makeText(ToDoDetailActivity.this, "Changes saved", Toast.LENGTH_SHORT).show();
 
                 }
                 setResult(RESULT_OK);
                 finish();
             }
+
+
         });
 
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Snackbar.make(view, "You can save task by clicking this", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                return true;
+            }
+        });
     }
+//        submitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String newTitle = titleTextView.getText().toString();
+//                String newCategory = spinner.getSelectedItem().toString();
+//                String newDate = dateTextView.getText().toString();
+//                String newTime = timeTextView.getText().toString();
+//
+//                if(newTitle.trim().isEmpty()){
+//                    titleTextView.setError("This field is mandatory");
+//                    return;
+//                }
+//
+//                //create ToDoOpenHelperObject to be able to get data from database
+//                ToDoOpenHelper toDoOpenHelper = ToDoOpenHelper.getToDoOpenHelperInstance(ToDoDetailActivity.this);
+//                SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
+//
+//                //put corresponding values into content values
+//                ContentValues cv = new ContentValues();
+//                cv.put(ToDoOpenHelper.TODO_TITLE,newTitle);
+//                cv.put(ToDoOpenHelper.TODO_CATEGORY,newCategory);
+//                cv.put(ToDoOpenHelper.TODO_DATE,newDate);
+//                cv.put(ToDoOpenHelper.TODO_TIME,newTime);
+//
+//                if(id == -1) {
+//                    database.insert(ToDoOpenHelper.TODO_TABLE_NAME, null, cv);
+//                    Toast.makeText(ToDoDetailActivity.this, "Task Added", Toast.LENGTH_SHORT).show();
+//
+//                }else{
+//                    database.update(ToDoOpenHelper.TODO_TABLE_NAME,cv,ToDoOpenHelper.TODO_ID + "=" + id,null);
+//                    Toast.makeText(ToDoDetailActivity.this, "Changes saved", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                setResult(RESULT_OK);
+//                finish();
+//            }
+//        });
+//
+//    }
     public void showTimePicker(Context context, int hour, int minute, boolean mode) {
         TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
             @Override
