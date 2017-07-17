@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,16 +44,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (ListView) findViewById(R.id.toDoListView);
         toDoArrayList = new ArrayList<>();
+        categoryArrayList=new ArrayList<>();
         toDoAdapter = new ToDoAdapter(this,toDoArrayList);
         listView.setAdapter(toDoAdapter);
         spinnerSort= (Spinner) findViewById(R.id.spinnerMain);
         setSupportActionBar(toolbar);
+        categoryArrayList.add("All");
         categoryArrayList.add("Home");
         categoryArrayList.add("Personal");
         categoryArrayList.add("Shopping");
         categoryArrayList.add("Work");
         categoryArrayList.add("Others");
-        categoryArrayList.add("All");
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +192,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String item =spinnerSort.getSelectedItem().toString();
+        String item =spinnerSort.getItemAtPosition(i).toString();
+        Log.i("ItemSelected",item);
         filter(item);
     }
 
@@ -197,6 +202,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
     public void filter( String newText){
-        ToDoAdapter.filter(newText);
+        toDoAdapter.filter(newText);
     }
 }

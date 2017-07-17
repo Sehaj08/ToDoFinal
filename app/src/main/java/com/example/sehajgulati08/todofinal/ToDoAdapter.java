@@ -35,13 +35,13 @@ public class ToDoAdapter extends ArrayAdapter<ToDoItems>  {
     public void filter(String newText) {
         newText=newText.toLowerCase();
         toDoArrayList= new ArrayList<>();
-        if(newText=="All"){
-            toDoArrayListCopy=toDoArrayList;
+        if(newText.equals("All")){
+            toDoArrayList=toDoArrayListCopy;
         }
         else{
             for(int i=0;i<toDoArrayListCopy.size();i++){
                 ToDoItems t= toDoArrayListCopy.get(i);
-                if(newText==toDoArrayListCopy.get(i).category){
+                if(toDoArrayListCopy.get(i).category.contains(newText)){
                     toDoArrayList.add(t);
                 }
             }
