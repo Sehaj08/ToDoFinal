@@ -45,8 +45,9 @@ public class ToDoAdapter extends ArrayAdapter<ToDoItems>  {
                     toDoArrayList.add(t);
                 }
             }
-            notifyDataSetChanged();
+
         }
+        notifyDataSetChanged();
     }
 
     static class ToDoViewHolder{
