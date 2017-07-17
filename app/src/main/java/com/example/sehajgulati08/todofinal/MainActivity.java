@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText quickEditTextView;
     Button buttonQuickAdd;
     Spinner spinnerSort;
+    int count = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,5 +177,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        count--;
+        if(count == 1){
+            Toast.makeText(this, "Press Once again to exit", Toast.LENGTH_SHORT).show();
+        }
+        if (count==0){
+            finish();
+        }
+//        super.onBackPressed();
     }
 }

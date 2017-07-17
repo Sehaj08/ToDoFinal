@@ -1,6 +1,8 @@
 package com.example.sehajgulati08.todofinal;
 
+import android.app.Application;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
     int id;
     long Date;
     String title , category,date ,time;
-    ImageView calenderImageView;
+    ImageView calenderImageView , clockImageView;
     ArrayList<String> categoryArrayList;
     ArrayAdapter<String> spinnerAdapter;
     Spinner spinner;
@@ -111,6 +114,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
         dateTextView = (EditText) findViewById(R.id.detailDateEditText);
         timeTextView = (EditText)findViewById(R.id.detailTimeEditText);
         calenderImageView = (ImageView) findViewById(R.id.calenderImageView);
+        clockImageView = (ImageView) findViewById(R.id.clockImageView);
         Button submitButton = (Button)findViewById(R.id.submitButton);
 
         //get ID by intent
@@ -156,6 +160,25 @@ public class ToDoDetailActivity extends AppCompatActivity {
                 showDatePicker(ToDoDetailActivity.this, year, month, 1);
             }
         });
+        timeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                showTimePicker(ToDoDetailActivity.this, hour, minute, false);
+            }
+        });
+
+        clockImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                showTimePicker(ToDoDetailActivity.this, hour, minute, false);
+            }
+        });
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +217,32 @@ public class ToDoDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void showTimePicker(Context context, int hour, int minute, boolean mode) {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String time, minute_string = "";
+                if (minute < 10) {
+                    minute_string = "0" + minute;
+                } else if (minute > 9) {
+                    minute_string = "" + minute;
+                }
+                if (hourOfDay < 12) {
+                    time = "am";
+
+                } else {
+                    time = "pm";
+                    hourOfDay = hourOfDay - 12;
+
+                }
+                if (hourOfDay == 0) {
+                    hourOfDay = 12;
+                }
+                timeTextView.setText(hourOfDay + ":" + minute_string + " " + time);
+            }
+        }, hour, minute, false);
+        timePickerDialog.show();
     }
     public void showDatePicker(Context context, int initialYear, int initialMonth, int initialDay) {
 

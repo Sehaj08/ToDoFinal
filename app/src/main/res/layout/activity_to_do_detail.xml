@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:inputType="textCapSentences"
             android:hint="Enter Task Here"/>
     </LinearLayout>
 
@@ -46,7 +47,7 @@
             <EditText
                 android:id="@+id/detailDateEditText"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="10"
                 android:focusable="false"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -82,13 +83,14 @@
     android:layout_height="match_parent">
     <EditText
         android:id="@+id/detailTimeEditText"
-        android:layout_weight="5"
+        android:layout_weight="10"
         android:layout_width="0dp"
         android:focusable="false"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Time not set" />
     <ImageView
+        android:id="@+id/clockImageView"
         android:layout_width="35dp"
         android:layout_weight="1"
         android:layout_height="35dp"

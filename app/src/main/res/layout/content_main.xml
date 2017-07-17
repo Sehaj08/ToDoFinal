@@ -44,6 +44,7 @@
         android:id="@+id/quickEditTextView"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:hint="Enter Quick Task Here"/>
     <Button
         android:layout_width="wrap_content"
