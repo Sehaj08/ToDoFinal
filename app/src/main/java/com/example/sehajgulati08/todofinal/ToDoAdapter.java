@@ -51,8 +51,6 @@ public class ToDoAdapter extends ArrayAdapter<ToDoItems>  {
                 notifyDataSetChanged();
                 }
 
-
-
             }
 
         }

@@ -1,7 +1,9 @@
 package com.example.sehajgulati08.todofinal;
 
+import android.app.AlarmManager;
 import android.app.Application;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,8 +28,13 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ToDoDetailActivity extends AppCompatActivity {
 
@@ -38,6 +46,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
     ArrayList<String> categoryArrayList;
     ArrayAdapter<String> spinnerAdapter;
     Spinner spinner;
+    static int idAlarm = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -215,6 +224,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
                     Toast.makeText(ToDoDetailActivity.this, "Changes saved", Toast.LENGTH_SHORT).show();
 
                 }
+                Alarm(newDate,newTitle);
                 setResult(RESULT_OK);
                 finish();
             }
@@ -270,6 +280,47 @@ public class ToDoDetailActivity extends AppCompatActivity {
 //        });
 //
 //    }
+
+    public void Alarm(String date ,String title){
+
+        AlarmManager am =(AlarmManager) ToDoDetailActivity.this.getSystemService(Context.ALARM_SERVICE);
+
+        Intent i = new Intent(ToDoDetailActivity.this,AlarmReceiver.class);
+        i.putExtra("titleAlarm",title);
+        i.putExtra("idAlarm",idAlarm++);
+        Log.i("SDAidAlarm",""+idAlarm);
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ToDoDetailActivity.this,idAlarm,i, 0);
+//                PendingIntent pendingIntent2 = PendingIntent.getBroadcast(MainActivity.this,1,i, 0);
+
+        Log.i("AlarmId!",""+idAlarm);
+
+
+
+
+        am.set(AlarmManager.RTC,getEpoch(date,title),pendingIntent );
+    }
+
+    public long getEpoch(String dateformat, String timeformat) {
+        DateFormat formatter;
+        java.util.Date date = null;
+
+        formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        long epoch = 0;
+        try {
+            date = (Date) formatter.parse(dateformat);
+            epoch = date.getTime();
+
+        } catch (ParseException e) {
+            Log.i("Exception comment", "ParseException");
+            e.printStackTrace();
+        }
+        Log.i("date :", date + "");
+        Log.i("epoch :", epoch + "");
+        return epoch;
+    }
+
     public void showTimePicker(Context context, int hour, int minute, boolean mode) {
         TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -314,7 +365,7 @@ public class ToDoDetailActivity extends AppCompatActivity {
                         calendar.set(year, month, day);
                         Date = calendar.getTime().getTime();
                         // Setting date selected in the edit text
-                        dateTextView.setText(day + "/" + (month + 1) + "/" + year);
+                        dateTextView.setText(day + "-" + (month + 1) + "-" + year);
                     }
                 }, initialYear, initialMonth, initialDay);
 

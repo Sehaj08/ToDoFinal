@@ -173,7 +173,7 @@ String item;
         SQLiteDatabase database = toDoOpenHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(ToDoOpenHelper.TODO_TITLE,quickTask);
-        cv.put(ToDoOpenHelper.TODO_CATEGORY,item);
+        cv.put(ToDoOpenHelper.TODO_CATEGORY,"Default");
         database.insert(ToDoOpenHelper.TODO_TABLE_NAME, null, cv);
         Toast.makeText(this, "Task added", Toast.LENGTH_SHORT).show();
         quickEditTextView.setText("");
