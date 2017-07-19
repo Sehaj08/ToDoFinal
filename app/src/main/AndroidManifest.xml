@@ -22,6 +22,8 @@
         <activity android:name=".ToDoDetailActivity">
 
         </activity>
+        <receiver android:name=".AlarmReceiver" />
+
     </application>
 
 </manifest>
