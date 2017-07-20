@@ -287,15 +287,18 @@ public class ToDoDetailActivity extends AppCompatActivity {
 
         Intent i = new Intent(ToDoDetailActivity.this,AlarmReceiver.class);
         i.putExtra("titleAlarm",title);
-        i.putExtra("idAlarm",idAlarm++);
-        Log.i("SDAidAlarm",""+idAlarm);
+//        i.putExtra("idAlarm",idAlarm++);
+        i.putExtra("idAlarm",id);
+//        Log.i("SDAidAlarm",""+idAlarm);
+        Log.i("SDAidAlarm",""+id);
 
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(ToDoDetailActivity.this,idAlarm,i, 0);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(ToDoDetailActivity.this,idAlarm,i, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ToDoDetailActivity.this,id,i, 0);
 //                PendingIntent pendingIntent2 = PendingIntent.getBroadcast(MainActivity.this,1,i, 0);
 
-        Log.i("AlarmId!",""+idAlarm);
-
+//        Log.i("AlarmId!",""+idAlarm);
+        Log.i("AlarmId!",""+id);
 
 
 

@@ -31,7 +31,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent resultIntent = new Intent(context,MainActivity.class);
 //        resultIntent.putExtra("id", id);
 //        intent.putExtra()
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context,idAlarm++,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent resultPendingIntent = PendingIntent.getActivity(context,idAlarm++,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context,idAlarm,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         Log.i("PendingIntentId",""+idAlarm);
 
